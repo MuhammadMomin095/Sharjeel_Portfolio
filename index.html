@@ -227,7 +227,7 @@ align-items: center;
 <div class="container mx-auto px-6 py-4">
 <div class="flex items-center justify-between">
 <a href="#" class="text-2xl font-['Poppins'] font-bold text-black dark:text-white">
-<span class="text-primary">S</span>harjeel
+<span class="text-primary">S</span>harjeel Siddiqui
 </a>
 <nav class="hidden md:flex items-center space-x-8">
 <a href="#home" class="nav-link text-black dark:text-white hover:text-primary active">Home</a>
@@ -238,16 +238,13 @@ align-items: center;
 <a href="#contact" class="nav-link text-black dark:text-white hover:text-primary">Contact</a>
 </nav>
 <div class="flex items-center space-x-4">
-<label class="theme-switch flex items-center">
-<input type="checkbox" id="theme-toggle">
-<span class="slider flex items-center">
-<i class="ri-sun-line ri-sm sun flex items-center justify-center"></i>
-<i class="ri-moon-line ri-sm moon flex items-center justify-center"></i>
-</span>
-</label>
-<button class="md:hidden flex items-center justify-center w-10 h-10" id="mobile-menu-button">
-<i class="ri-menu-line ri-lg text-white"></i>
-</button>
+  <span id="theme-toggle-icon" class="cursor-pointer text-2xl">
+    <i class="ri-sun-line" id="sun-icon" style="display: none;"></i>
+    <i class="ri-moon-line" id="moon-icon" style="display: none;"></i>
+  </span>
+  <button class="md:hidden flex items-center justify-center w-10 h-10" id="mobile-menu-button">
+    <i class="ri-menu-line ri-lg text-white"></i>
+  </button>
 </div>
 </div>
 <!-- Mobile Menu -->
@@ -272,11 +269,10 @@ align-items: center;
 <div class="container mx-auto px-6 z-10">
 <div class="flex flex-col items-center text-center relative">
 <div class="glowing-circle absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[120px] pointer-events-none"></div>
-<h2 class="text-xl md:text-2xl text-primary font-medium mb-6 tracking-wider reveal-text">FRONTEND DEVELOPER & UI/UX DESIGNER</h2>
+<h2 class="text-xl md:text-2xl text-primary font-medium mb-6 tracking-wider reveal-text">UI/UX DESIGNER</h2>
 <h1 class="text-4xl md:text-7xl font-bold mb-8 leading-tight reveal-text-delay text-black dark:text-white">
 Hi, I'm <span class="gradient-text">Sharjeel</span> <br>
-A Digital <span class="gradient-text">Creator</span> <br>
-& Developer
+A Creative <span class="gradient-text">Designer</span> 
 </h1>
 <p class="text-gray-800 dark:text-gray-300 text-lg md:text-xl mb-12 max-w-2xl reveal-text-delay-2">
 Specialized in frontend development and UI/UX design, I create engaging digital experiences that combine beautiful aesthetics with seamless functionality. With 4 years of experience in crafting exceptional web solutions.
@@ -1146,20 +1142,31 @@ alert('Your message has been sent successfully!');
 </script>
 <script id="theme-toggle">
 document.addEventListener('DOMContentLoaded', function() {
-  const themeToggle = document.getElementById('theme-toggle');
   const html = document.documentElement;
+  const sunIcon = document.getElementById('sun-icon');
+  const moonIcon = document.getElementById('moon-icon');
+  const themeToggleIcon = document.getElementById('theme-toggle-icon');
+  function updateIcons() {
+    if (html.classList.contains('dark')) {
+      sunIcon.style.display = 'block';
+      moonIcon.style.display = 'none';
+    } else {
+      sunIcon.style.display = 'none';
+      moonIcon.style.display = 'block';
+    }
+  }
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme) {
     html.classList.toggle('dark', savedTheme === 'dark');
-    themeToggle.checked = savedTheme === 'dark';
   } else {
     html.classList.toggle('dark', prefersDark);
-    themeToggle.checked = prefersDark;
   }
-  themeToggle.addEventListener('change', function() {
-    html.classList.toggle('dark', this.checked);
-    localStorage.setItem('theme', this.checked ? 'dark' : 'light');
+  updateIcons();
+  themeToggleIcon.addEventListener('click', function() {
+    html.classList.toggle('dark');
+    localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    updateIcons();
   });
 });
 </script>
